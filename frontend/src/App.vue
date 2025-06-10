@@ -3,7 +3,7 @@
         <h1>{{ message }}</h1>
         <ul>
             <li v-for="material in materials" :key="material.id">
-                {{  material.name }} - ${{ material.price.toFixed(2) }}
+                {{  material.name }} - ${{ formatPrice(material.price) }}
             </li>
 
         </ul>
@@ -28,7 +28,11 @@ export default {
       .catch(error => {
         console.error('Error fetching materials:', error);
       });
-
+    },
+    methods: {
+        formatPrice(price) {
+            return Number(price).toFixed(2);
+        }
     }
 }
 </script>
@@ -41,5 +45,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  ul {
+    list-style-position: inside;
+    padding-left: 0;
+    }
 }
 </style>
