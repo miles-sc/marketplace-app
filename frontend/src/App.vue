@@ -2,17 +2,14 @@
 
     <div>
         <HeaderBar />
-    </div>
-
-    <div class="content">
-        <MaterialList :materials="materials" @select="handleSelect" />
+        <router-view :materials="materials" @select="handleSelect" />
     </div>
 
 </template>
 
 
-
 <script>
+
 import HeaderBar from './components/HeaderBar.vue';
 import MaterialList from './components/MaterialList.vue';
 
@@ -25,7 +22,6 @@ export default {
 
     data() {
         return{
-            message: 'MakerMarket',
             materials: []
         };
     },

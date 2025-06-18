@@ -2,19 +2,19 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 
 import App from '../App.vue';
-import MaterialList from '../views/MaterialList.vue';
-import MaterialDetail from '../views/MaterialDetail.vue';
+import MaterialGuide from '@/components/MaterialGuide.vue';
+import Home from '@/components/Home.vue';
 
 const routes = [
     {
         path: '/',
         name: 'Home',
-        component: MaterialList
+        component: Home
     },
     {
         path: '/materials/:id',
-        name: 'MaterialDetail',
-        component: MaterialDetail,
+        name: 'MaterialGuide',
+        component: MaterialGuide,
         props: true
     }
 ]
