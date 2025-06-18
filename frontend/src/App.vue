@@ -1,24 +1,35 @@
 <template>
-    <div>
-        <h1>{{ message }}</h1>
-        <ul>
-            <li v-for="material in materials" :key="material.id">
-                {{  material.name }} - ${{ formatPrice(material.price) }}
-            </li>
 
-        </ul>
+    <div>
+        <HeaderBar />
     </div>
+
+    <div class="content">
+        <MaterialList :materials="materials" @select="handleSelect" />
+    </div>
+
 </template>
 
+
+
 <script>
+import HeaderBar from './components/HeaderBar.vue';
+import MaterialList from './components/MaterialList.vue';
+
 export default {
     name: 'App',
+    components: {
+        HeaderBar,
+        MaterialList
+    },
+
     data() {
         return{
-            message: 'Welcome to the Materials Market',
+            message: 'MakerMarket',
             materials: []
         };
     },
+
     mounted() {
         fetch('http://localhost:3000/products')
       .then(response => response.json())
@@ -29,9 +40,13 @@ export default {
         console.error('Error fetching materials:', error);
       });
     },
+
     methods: {
         formatPrice(price) {
             return Number(price).toFixed(2);
+        },
+        handleSelect(material) {
+            console.log('Selected material:', material);
         }
     }
 }
@@ -44,10 +59,21 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0;
   ul {
     list-style-position: inside;
     padding-left: 0;
     }
+
+    .content {
+  display: flex;
+}
+
+.material-list {
+  width: 50%;
+  padding: 1rem;
+  text-align: left;
+}
+
 }
 </style>
