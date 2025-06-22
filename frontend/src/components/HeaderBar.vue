@@ -1,13 +1,13 @@
 <template>
-  <headerbar class="header-bar">
+  <header class="header-bar">
     <h1>MakerMarket</h1>
-  </headerbar>
+  </header>
 </template>
 
 <script>
-export default {
-  name: 'HeaderBar'
-}
+    export default {
+    name: 'HeaderBar'
+    }
 </script>
 
 <style scoped>

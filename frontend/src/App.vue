@@ -1,23 +1,28 @@
 <template>
-
-    <div>
-        <HeaderBar />
-        <router-view :materials="materials" @select="handleSelect" />
-    </div>
-
+    <nav>
+        <RouterLink to="/">HelloWorld</RouterLink>
+        <RouterLink to="/HeaderBar">HeaderBar</RouterLink>
+    </nav>
+    <RouterView/>
 </template>
 
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
+</script>
 
-<script>
 
-import HeaderBar from './components/HeaderBar.vue';
-import MaterialList from './components/MaterialList.vue';
+<!-- <script setup>
+import { RouterLink, RouterView } from 'vue-router';
+</script> -->
+
+
+
+
+<!-- <script>
 
 export default {
     name: 'App',
     components: {
-        HeaderBar,
-        MaterialList
     },
 
     data() {
@@ -46,7 +51,7 @@ export default {
         }
     }
 }
-</script>
+</script> -->
 
 <style>
 #app {
