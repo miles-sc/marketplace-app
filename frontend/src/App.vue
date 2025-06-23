@@ -1,15 +1,15 @@
 <template>
-    <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/materials">Materials</RouterLink>
-    </nav>
-    <RouterView/>
+    <HeaderBar/>
+    <div  class="page">
+            <RouterView/>
+    </div>
 </template>
 
 <script setup>
 import { onMounted } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import { useMaterialsStore } from '@/stores/materials'
+import HeaderBar from './components/HeaderBar.vue'
 
 const store = useMaterialsStore()
 
@@ -23,7 +23,7 @@ onMounted(() => {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align: left;
   color: #2c3e50;
   margin-top: 0;
   ul {
@@ -31,9 +31,9 @@ onMounted(() => {
     padding-left: 0;
     }
 
-    .content {
-  display: flex;
-    }
+    .page {
+  padding-left: 1.5rem;
+}
 
 }
 </style>

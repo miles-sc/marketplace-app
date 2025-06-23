@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2>Available Materials</h2>
-    <p>Click any material for more information</p>
+    <h2>Materials</h2>
+    <p>Click for more info</p>
     <ul>
       <li
         v-for="material in store.materials"
