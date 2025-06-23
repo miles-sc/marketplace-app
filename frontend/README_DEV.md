@@ -22,3 +22,11 @@ MaterialList.vue - List of materials and prices
 
 
 index.js - builds router, controls navigation
+
+
+Selection functionality saved for later:
+HomePage.vue - <MaterialList :materials="materials" @select="$emit('select', $event)"/>
+MaterialList.vue -   @click="$emit('select', material)"
+App.vue - handleSelect(material) {
+            console.log('Selected material:', material);
+        }

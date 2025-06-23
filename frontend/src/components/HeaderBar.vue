@@ -1,5 +1,5 @@
 <template>
-  <header class="header-bar">
+  <header>
     <h1>MakerMarket</h1>
   </header>
 </template>
@@ -11,14 +11,4 @@
 </script>
 
 <style scoped>
-.header-bar {
-  background-color: #d32f2f;
-  color: white;
-  height: 5vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin:0;
-  padding:0;
-}
 </style>

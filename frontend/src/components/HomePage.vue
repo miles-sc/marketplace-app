@@ -2,7 +2,7 @@
 
     <div>
         <h1 style="background:#eee">HomePage mounted</h1>
-        <MaterialList :materials="materials" @select="$emit('select', $event)"/>
+        <MaterialList :materials="materials"/>
     </div>
 
 </template>
@@ -24,3 +24,6 @@ export default {
 }
 
 </script>
+
+<style scoped>
+</style>

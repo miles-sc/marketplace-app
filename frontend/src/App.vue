@@ -1,57 +1,22 @@
 <template>
     <nav>
-        <RouterLink to="/">HelloWorld</RouterLink>
-        <RouterLink to="/HeaderBar">HeaderBar</RouterLink>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/materials">Materials</RouterLink>
     </nav>
     <RouterView/>
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+import { useMaterialsStore } from '@/stores/materials'
+
+const store = useMaterialsStore()
+
+onMounted(() => {
+    store.fetchMaterials()
+})
 </script>
-
-
-<!-- <script setup>
-import { RouterLink, RouterView } from 'vue-router';
-</script> -->
-
-
-
-
-<!-- <script>
-
-export default {
-    name: 'App',
-    components: {
-    },
-
-    data() {
-        return{
-            materials: []
-        };
-    },
-
-    mounted() {
-        fetch('http://localhost:3000/products')
-      .then(response => response.json())
-      .then(data => {
-        this.materials = data;
-      })
-      .catch(error => {
-        console.error('Error fetching materials:', error);
-      });
-    },
-
-    methods: {
-        formatPrice(price) {
-            return Number(price).toFixed(2);
-        },
-        handleSelect(material) {
-            console.log('Selected material:', material);
-        }
-    }
-}
-</script> -->
 
 <style>
 #app {
@@ -68,13 +33,7 @@ export default {
 
     .content {
   display: flex;
-}
-
-.material-list {
-  width: 50%;
-  padding: 1rem;
-  text-align: left;
-}
+    }
 
 }
 </style>

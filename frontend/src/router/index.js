@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HelloWorld from '../components/HelloWorld.vue'
-import HeaderBar from '../components/HeaderBar.vue'
+import MaterialGuide from '@/components/MaterialGuide.vue'
+import HomePage from '@/components/HomePage.vue'
 
 const routes = [
-  { path: '/', component: HelloWorld },
-  { path: '/HeaderBar', component: HeaderBar }
+  { path: '/', component: HomePage },
+  { path: '/materials', component: MaterialGuide }
 ]
 
 export default createRouter({
