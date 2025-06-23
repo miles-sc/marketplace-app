@@ -19,8 +19,15 @@ onMounted(() => {
 </script>
 
 <style>
+
+html, body, #app {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
@@ -32,7 +39,7 @@ onMounted(() => {
     }
 
     .page {
-  padding-left: 1.5rem;
+    padding-left: 1.5rem;
 }
 
 }
