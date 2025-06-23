@@ -1,14 +1,21 @@
 <template>
   <div>
     <h2>Materials</h2>
-    <p>Click for more info</p>
-    <ul>
-      <li
-        v-for="material in store.materials"
-        :key="material.id">
-        {{ material.name }} - ${{ formatPrice(material.price) }}
-      </li>
-    </ul>
+    <table>
+        <thead>
+            <tr>
+            <th>Name</th>
+            <th>Price/in<sup>3</sup></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="material in store.materials" :key="material.id">
+            <td>{{ material.name }}</td>
+            <td>{{ formatPrice(material.price) }}</td>
+            </tr>
+        </tbody>
+    </table>
+
   </div>
 </template>
 
