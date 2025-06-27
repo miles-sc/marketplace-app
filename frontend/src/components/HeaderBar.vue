@@ -2,16 +2,22 @@
     <header class="header-bar">
         <h1 class="site-title">MakerMarket</h1>
         <nav class="nav-links">
-            <RouterLink to="/">Home</RouterLink>
-            <RouterLink to="/materials">Materials</RouterLink>
+            <div class="nav-left">
+                <RouterLink to="/">Home</RouterLink>
+                <RouterLink to="/materials">Materials</RouterLink>
+                <RouterLink to="/resources">Resources</RouterLink>
+            </div>
+            <div class="nav-right">
+                <RouterLink to="/cart" > <IconCart /> </RouterLink>
+                <RouterLink to="/profile" > <IconProfile /> </RouterLink>
+            </div>
         </nav>
     </header>
 </template>
 
-import { RouterLink, RouterView } from 'vue-router'
-
 <script setup>
 import { RouterLink } from 'vue-router';
+import { IconCart, IconProfile } from '@/components/icons';
 </script>
 
 
@@ -33,7 +39,9 @@ import { RouterLink } from 'vue-router';
 
 .nav-links {
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
   margin-left: 1.5rem;
 }
 
@@ -45,4 +53,15 @@ import { RouterLink } from 'vue-router';
 .nav-links a:hover {
   text-decoration: underline;
 }
+
+.nav-left {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-right {
+  display: flex;
+  gap: 1rem;
+}
+
 </style>
