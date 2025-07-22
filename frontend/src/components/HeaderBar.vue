@@ -26,8 +26,8 @@ import { IconCart, IconProfile } from '@/components/icons';
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background-color: #8B0000; /* dark red */
-  color: #f8f8f8; /* off white */
+  background-color: #8B0000;
+  color: #f8f8f8;
   padding: 0.75rem 1.5rem;
 }
 
@@ -51,7 +51,8 @@ import { IconCart, IconProfile } from '@/components/icons';
 }
 
 .nav-links a:hover {
-  text-decoration: underline;
+  transform: scale(1.05);
+  transition: transform 0.1s linear;
 }
 
 .nav-left {
