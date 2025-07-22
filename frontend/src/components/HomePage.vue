@@ -9,19 +9,29 @@
         <img :src="tube" alt="Tube part" />
     </div>
 
-    <div>
+    <!-- <div>
         <MaterialList/>
+    </div> -->
+
+    <div class="upload-button">
+        <button>Upload a STEP file</button>
     </div>
+
 </template>
 
 <script setup>
-import MaterialList from './MaterialList.vue';
+// import MaterialList from './MaterialList.vue';
 import bent from '../assets/bent.png';
 import machined from '../assets/machined.png';
 import tube from '../assets/tube.png';
 </script>
 
 <style scoped>
+
+h1 {
+  text-align: center;
+}
+
 .image-row {
   display: flex;
   justify-content: center;
@@ -38,5 +48,27 @@ import tube from '../assets/tube.png';
   max-width: clamp(80px, 25vw, 300px); /* Shrinks on small screens */
   height: auto;
   object-fit: contain;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: #8B0000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+.upload-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 }
 </style>
