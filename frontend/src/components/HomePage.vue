@@ -9,21 +9,39 @@
         <img :src="tube" alt="Tube part" />
     </div>
 
-    <!-- <div>
-        <MaterialList/>
-    </div> -->
-
     <div class="upload-button">
-        <button>Upload a STEP file</button>
+        <input
+            type="file"
+            accept=".step,.stp"
+            ref="stepFileInput"
+            @change="handleFileUpload"
+            style="display: none;"
+        />
+        <button @click="triggerUpload">Upload a STEP file</button>
     </div>
-
 </template>
 
 <script setup>
-// import MaterialList from './MaterialList.vue';
 import bent from '../assets/bent.png';
 import machined from '../assets/machined.png';
 import tube from '../assets/tube.png';
+import { ref } from 'vue' //enables the ability reference other/hidden objects
+
+const stepFileInput = ref(null)
+/*creates an element that can be referenced by this name. input block in
+template section hooks up to this object */
+
+function triggerUpload() { //simulates a click on this element
+  stepFileInput.value.click()
+}
+
+function handleFileUpload(event) {
+  const file = event.target.files[0]
+  if (file) {
+    console.log('Selected file:', file)
+    //next step: send to backend or store in state
+  }
+}
 </script>
 
 <style scoped>
