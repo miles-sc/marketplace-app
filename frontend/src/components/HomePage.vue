@@ -35,11 +35,25 @@ function triggerUpload() { //simulates a click on this element
   stepFileInput.value.click()
 }
 
-function handleFileUpload(event) {
+async function handleFileUpload(event) {
   const file = event.target.files[0]
-  if (file) {
-    console.log('Selected file:', file)
-    //next step: send to backend or store in state
+  if (!file) return
+
+  const formData = new FormData()
+  formData.append('file',file)
+
+  try{
+    const response=await fetch('http://localhost:3000/api/step_files', {
+      method:'POST',
+      body:formData
+    })
+    if (!response.ok){
+      throw new Error('Upload failed')
+    }
+    const result = await response.json()
+    console.log('Upload succeeded:', result)
+  } catch (error) {
+    console.error('Error uploading file:', error)
   }
 }
 </script>
