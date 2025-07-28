@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-  get "/products", to: "products#index"
+    namespace :api do
+        resources :products, only: [:index]
+        resources :step_files
+    end
 end

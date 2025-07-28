@@ -7,7 +7,7 @@ export const useMaterialsStore=defineStore('materials',()=> {
 
     async function fetchMaterials(){
         try{
-            const response=await fetch('http://localhost:3000/products')
+            const response=await fetch('http://localhost:3000/api/products')
             materials.value=await response.json()
         } catch (error) {
             console.error('Error fetching materials:',error)
