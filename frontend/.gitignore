@@ -22,5 +22,6 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
-concat.py
-core_code_combined.txt
+fe_collect.py
+fe_combined.txt
+README_DEV.md
