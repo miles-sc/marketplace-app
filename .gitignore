@@ -19,3 +19,6 @@ Thumbs.db
 # IDE / Editor junk
 .vscode/
 .idea/
+
+test.py
+test.txt
