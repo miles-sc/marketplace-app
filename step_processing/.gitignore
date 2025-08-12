@@ -1,5 +1,5 @@
-cpp_collect.py
-cpp_combined.txt
+step_collect.py
+step_combined.txt
 
 build/
 venv/

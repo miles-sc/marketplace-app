@@ -22,3 +22,5 @@ Thumbs.db
 
 test.py
 test.txt
+test.step
+render_cache/
