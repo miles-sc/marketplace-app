@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(cpp_occ_tools LANGUAGES CXX)
+project(step_processing LANGUAGES CXX)
 
 # tell CMake where the OCC headers are
 set(OpenCASCADE_INCLUDE_DIR "/usr/include/oce")
