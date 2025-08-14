@@ -28,6 +28,6 @@ int main(int argc, char** argv) {
   BRepGProp::VolumeProperties(solid, props);
 
   // print
-  std::cout << props.Mass() << "\n";
+  std::cout << props.Mass() << std::endl;
   return 0;
 }

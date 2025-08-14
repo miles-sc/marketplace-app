@@ -28,6 +28,6 @@ int main(int argc, char** argv) {
   BRepGProp::SurfaceProperties(solid, props);
 
   // print
-  std::cout << "Surface Area: " << props.Mass() << "\n";
+  std::cout << props.Mass() << std::endl;
   return 0;
 }
