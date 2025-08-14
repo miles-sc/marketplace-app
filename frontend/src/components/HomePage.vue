@@ -43,7 +43,7 @@ async function handleFileUpload(event) {
   formData.append('file',file)
 
   try{
-    const response=await fetch('http://localhost:3000/api/step_files', {
+    const response=await fetch('http://localhost:3000/api/step_jobs', {
       method:'POST',
       body:formData
     })
