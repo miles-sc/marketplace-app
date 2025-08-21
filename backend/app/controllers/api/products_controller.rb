@@ -1,5 +1,5 @@
 module Api
-    class Api::ProductsController<ApplicationController
+    class ProductsController<ApplicationController
         def index
             products=Product.all
             render json: products
