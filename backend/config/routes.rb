@@ -4,7 +4,7 @@ Rails.application.routes.draw do
         resources :step_files, only: [:create]
         resources :step_jobs, only: [:create, :show] do
             member do
-                get "files/:filename", to: "step_jobs#file"
+                get "files/*filename", to: "step_jobs#file"
             end
         end
     end
