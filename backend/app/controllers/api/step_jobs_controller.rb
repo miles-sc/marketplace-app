@@ -7,6 +7,9 @@ module Api
     RENDER_SCRIPT_DIR= Rails.root.parent.join("step_processing","step_render_views.py")
     RENDER_CACHE_DIR= Rails.root.parent.join("step_processing","render_cache")
 
+
+
+
     def create
       uploaded_file = params[:file]
 
@@ -21,7 +24,7 @@ module Api
       end
 
       job_id= SecureRandom.uuid
-      job_directory= Rails.root.join("tmp","step_jobs",job_id)
+      job_directory= Rails.root.join("storage","step_jobs",job_id)
       FileUtils.mkdir_p(job_directory)
 
       destination= job_directory.join(uploaded_file.original_filename.downcase)
@@ -40,15 +43,43 @@ module Api
       FileUtils.cp(front, job_directory.join("front.svg"))
       FileUtils.cp(top, job_directory.join("top.svg"))
 
+      StepJob.create!(
+        job_id: job_id,
+        filename: uploaded_file.original_filename.downcase,
+        metrics: { volume: volume, surface_area: area }
+      )
+
 
       render json: {
         job_id: job_id,
-        filename: uploaded_file.original_filename,
-        metrics: {
-          volume: volume,
-          surface_area: area
-        }
+        filename: uploaded_file.original_filename.downcase,
+        metrics: { volume: volume, surface_area: area } }, status: :ok
+
+    end
+
+    def show
+      job = StepJob.find_by(job_id: params[:id])
+      return render json: { error: "Job not found" }, status: :not_found unless job
+
+      render json: {
+        job_id: job.job_id,
+        filename: job.filename,
+        metrics: job.metrics
       }, status: :ok
     end
+
+
+    def file
+      job = StepJob.find_by(job_id: params[:id])
+
+      return render json: { error: "Job not found" }, status: :not_found unless job
+      file_path = Rails.root.join("storage","step_jobs", job.job_id, params[:filename])
+      return render json: { error: "File not found" }, status: :not_found unless File.exist?(file_path)
+
+      send_file file_path, disposition: "inline"
+    end
+
+
+
   end
 end

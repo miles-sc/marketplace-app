@@ -27,8 +27,6 @@ def main():
     if step_path.suffix.lower() not in {".step", ".stp"}:
         parser.error(f"Not a step file")
 
-
-
     out_dir = Path(__file__).parent/"render_cache"
     out_dir.mkdir(parents=True, exist_ok=True)
 
