@@ -9,7 +9,7 @@
         <img :src="tube" alt="Tube part" />
     </div>
 
-    <div class="upload-button">
+    <div v-if="!job" class="upload-button">
         <input
             type="file"
             accept=".step,.stp"
@@ -18,6 +18,18 @@
             style="display: none;"
         />
         <button @click="triggerUpload">Upload a STEP file</button>
+    </div>
+
+    <div v-else class="job-results">
+        <p>{{ job.filename }}</p>
+        <p><strong>Volume:</strong> {{ job.metrics.volume }}</p>
+        <p><strong>Surface Area:</strong> {{ job.metrics.surface_area }}</p>
+
+        <div class="image-row">
+            <img :src="`http://localhost:3000/api/step_jobs/${job.job_id}/files/front.svg`" alt="Front view" />
+            <img :src="`http://localhost:3000/api/step_jobs/${job.job_id}/files/iso.svg`" alt="Iso view" />
+            <img :src="`http://localhost:3000/api/step_jobs/${job.job_id}/files/top.svg`" alt="Top view" />
+        </div>
     </div>
 </template>
 
@@ -30,6 +42,7 @@ import { ref } from 'vue' //enables the ability reference other/hidden objects
 const stepFileInput = ref(null)
 /*creates an element that can be referenced by this name. input block in
 template section hooks up to this object */
+const job=ref(null)
 
 function triggerUpload() { //simulates a click on this element
   stepFileInput.value.click()
@@ -52,6 +65,7 @@ async function handleFileUpload(event) {
     }
     const result = await response.json()
     console.log('Upload succeeded:', result)
+    job.value = result
   } catch (error) {
     console.error('Error uploading file:', error)
   }
@@ -103,4 +117,15 @@ button:hover {
   justify-content: center;
   margin-top: 2rem;
 }
+
+.job-results {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.job-results img {
+  max-width: 200px;
+  margin: 0 1rem;
+}
+
 </style>
