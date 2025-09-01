@@ -30,8 +30,8 @@ module Api
       destination= job_directory.join(uploaded_file.original_filename.downcase)
       File.open(destination, "wb") { |f| f.write(uploaded_file.read) }
 
-      volume = (`#{BINARY_SCRIPT_DIR.join("step_volume")} #{destination}`.to_f)/(25.4**3)
-      area   = `#{BINARY_SCRIPT_DIR.join("step_surface_area")} #{destination}`.to_f/(25.4**2)
+      volume = (`#{BINARY_SCRIPT_DIR.join("step_volume")} #{destination}`.to_f/(25.4**3)).round(1)
+      area   = (`#{BINARY_SCRIPT_DIR.join("step_surface_area")} #{destination}`.to_f/(25.4**2)).round(1)
 
       `python3 #{RENDER_SCRIPT_DIR} #{destination}`
 
