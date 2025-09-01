@@ -70,13 +70,23 @@ module Api
 
 
     def file
-      job = StepJob.find_by(job_id: params[:id])
 
+      #Search by job ID -> 'show' block
+      job = StepJob.find_by(job_id: params[:id])
       return render json: { error: "Job not found" }, status: :not_found unless job
-      file_path = Rails.root.join("storage","step_jobs", job.job_id, params[:filename])
+
+      #Format file path to always include extension if possible
+      requested = [params[:filename], params[:format]].compact.join(".")
+      file_path = Rails.root.join("storage","step_jobs", job.job_id, requested)
       return render json: { error: "File not found" }, status: :not_found unless File.exist?(file_path)
 
-      send_file file_path, disposition: "inline"
+      #Tell browser that this is an image it can render (if true)
+      ext  = File.extname(requested).downcase
+      mime = (ext == ".svg") ? "image/svg+xml" : "application/octet-stream"
+
+      #Send file
+      send_file file_path, disposition: "inline", type: mime
+
     end
 
 
