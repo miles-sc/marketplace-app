@@ -5,7 +5,7 @@ import argparse
 import cadquery as cq
 from cadquery import exporters, importers
 
-def export_svg(obj, out_svg: Path, projection_dir, stroke_width=0.5, show_hidden=False):
+def export_svg(obj, out_svg: Path, projection_dir, stroke_width=1, show_hidden=False):
     opts = {
         "projectionDir": projection_dir,
         "showAxes": False,
