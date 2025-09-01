@@ -29,6 +29,10 @@ import { IconCart, IconProfile } from '@/components/icons';
   background-color: #8B0000;
   color: #f8f8f8;
   padding: 0.75rem 1.5rem;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .site-title {
