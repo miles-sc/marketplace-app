@@ -21,9 +21,9 @@
     </div>
 
     <div v-else class="job-results">
-        <p>{{ job.filename }}</p>
-        <p><strong>Volume:</strong> {{ job.metrics.volume }}</p>
-        <p><strong>Surface Area:</strong> {{ job.metrics.surface_area }}</p>
+        <h2>{{ job.filename }}</h2>
+        <p><strong>Volume:</strong> {{ job.metrics.volume }} in<sup>3</sup></p>
+        <p><strong>Surface Area:</strong> {{ job.metrics.surface_area }} in<sup>2</sup></p>
 
         <div class="image-row">
             <img :src="`http://localhost:3000/api/step_jobs/${job.job_id}/files/front.svg`" alt="Front view" />
@@ -32,21 +32,21 @@
         </div>
 
         <div class="materials-cost">
-        <h3>Price by Material</h3>
-        <table>
-            <thead>
-            <tr>
-                <th>Material</th>
-                <th>Price</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="row in materialRows" :key="row.name">
-                <td>{{ row.name }}</td>
-                <td>{{ fmtMoney(row.cost) }}</td>
-            </tr>
-            </tbody>
-        </table>
+            <h2>Price by Material</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Material</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="row in materialRows" :key="row.name">
+                    <td>{{ row.name }}</td>
+                    <td>{{ fmtMoney(row.cost) }}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
 
     </div>
@@ -160,10 +160,10 @@ button:hover {
   margin-top: 2rem;
 }
 
-.job-results img {
+/* .job-results img {
   max-width: 200px;
   margin: 0 1rem;
-}
+} */
 
 .materials-cost {
   margin: 2rem auto 0;
