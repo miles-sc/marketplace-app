@@ -30,6 +30,25 @@
             <img :src="`http://localhost:3000/api/step_jobs/${job.job_id}/files/iso.svg`" alt="Iso view" />
             <img :src="`http://localhost:3000/api/step_jobs/${job.job_id}/files/top.svg`" alt="Top view" />
         </div>
+
+        <div class="materials-cost">
+        <h3>Price by Material</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Material</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="row in materialRows" :key="row.name">
+                <td>{{ row.name }}</td>
+                <td>{{ fmtMoney(row.cost) }}</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+
     </div>
 </template>
 
@@ -37,12 +56,14 @@
 import bent from '../assets/bent.png';
 import machined from '../assets/machined.png';
 import tube from '../assets/tube.png';
-import { ref } from 'vue' //enables the ability reference other/hidden objects
+import { ref, computed } from 'vue' //enables the ability reference other/hidden objects
+import { useMaterialsStore } from '@/stores/materials'
 
 const stepFileInput = ref(null)
 /*creates an element that can be referenced by this name. input block in
 template section hooks up to this object */
 const job=ref(null)
+const store = useMaterialsStore()
 
 function triggerUpload() { //simulates a click on this element
   stepFileInput.value.click()
@@ -70,6 +91,22 @@ async function handleFileUpload(event) {
     console.error('Error uploading file:', error)
   }
 }
+
+const currency = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD' })
+function fmtMoney(n) { return currency.format(Number(n || 0)) }
+
+const materialRows = computed(() => {
+  if (!job.value?.metrics?.volume) return []
+  const volume = Number(job.value?.metrics?.volume ?? 0)
+  return store.materials.map(m => {
+    const unitPrice = Number(m.price || 0)
+    const cost = unitPrice * volume
+    return {
+      name: m.name,
+      cost
+    }
+  })
+})
 </script>
 
 <style scoped>
@@ -126,6 +163,34 @@ button:hover {
 .job-results img {
   max-width: 200px;
   margin: 0 1rem;
+}
+
+.materials-cost {
+  margin: 2rem auto 0;
+  max-width: 600px;
+  text-align: center;
+}
+
+.materials-cost table {
+  margin: 0 auto;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.materials-cost th,
+.materials-cost td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.materials-cost tbody tr {
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.materials-cost tbody tr:hover {
+  background-color: #8B0000;
+  color: #ffffff;
 }
 
 </style>
