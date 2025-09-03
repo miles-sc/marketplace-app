@@ -7,7 +7,7 @@ module Api
     RENDER_SCRIPT_DIR= Rails.root.parent.join("step_processing","step_render_views.py")
     RENDER_CACHE_DIR= Rails.root.parent.join("step_processing","render_cache")
 
-
+    CONDA_ENV="cq"
 
 
     def create
@@ -33,7 +33,7 @@ module Api
       volume = (`#{BINARY_SCRIPT_DIR.join("step_volume")} #{destination}`.to_f/(25.4**3)).round(1)
       area   = (`#{BINARY_SCRIPT_DIR.join("step_surface_area")} #{destination}`.to_f/(25.4**2)).round(1)
 
-      `python3 #{RENDER_SCRIPT_DIR} #{destination}`
+      `conda run -n #{CONDA_ENV} python #{RENDER_SCRIPT_DIR} #{destination}`
 
       iso=RENDER_CACHE_DIR.join("iso.svg")
       front=RENDER_CACHE_DIR.join("front.svg")
