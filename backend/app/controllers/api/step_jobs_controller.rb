@@ -27,13 +27,13 @@ module Api
       job_directory= Rails.root.join("storage","step_jobs",job_id)
       FileUtils.mkdir_p(job_directory)
 
-      destination= job_directory.join(uploaded_file.original_filename.downcase)
-      File.open(destination, "wb") { |f| f.write(uploaded_file.read) }
+      step_dir= job_directory.join(uploaded_file.original_filename.downcase)
+      File.open(step_dir, "wb") { |f| f.write(uploaded_file.read) }
 
-      volume = (`#{BINARY_SCRIPT_DIR.join("step_volume")} #{destination}`.to_f/(25.4**3)).round(1)
-      area   = (`#{BINARY_SCRIPT_DIR.join("step_surface_area")} #{destination}`.to_f/(25.4**2)).round(1)
+      volume = (`#{BINARY_SCRIPT_DIR.join("step_volume")} #{step_dir}`.to_f/(25.4**3)).round(1)
+      area   = (`#{BINARY_SCRIPT_DIR.join("step_surface_area")} #{step_dir}`.to_f/(25.4**2)).round(1)
 
-      `conda run -n #{CONDA_ENV} python #{RENDER_SCRIPT_DIR} #{destination}`
+      `conda run -n #{CONDA_ENV} python #{RENDER_SCRIPT_DIR} #{step_dir} #{job_directory}`
 
       iso=RENDER_CACHE_DIR.join("iso.svg")
       front=RENDER_CACHE_DIR.join("front.svg")
@@ -88,8 +88,6 @@ module Api
       send_file file_path, disposition: "inline", type: mime
 
     end
-
-
 
   end
 end

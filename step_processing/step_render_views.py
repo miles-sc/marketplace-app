@@ -16,6 +16,7 @@ def export_svg(obj, out_svg: Path, projection_dir, stroke_width=1, show_hidden=F
 def main():
     parser = argparse.ArgumentParser(description="Render iso/front/top views from a step file")
     parser.add_argument("step_path", type=Path, help="Path to .step file")
+    parser.add_argument("out_dir",type=Path, help='Path to destination folder')
     args = parser.parse_args()
 
     step_path: Path = args.step_path
@@ -25,7 +26,7 @@ def main():
     if step_path.suffix.lower() not in {".step", ".stp"}:
         parser.error(f"Not a step file")
 
-    out_dir = Path(__file__).parent/"render_cache"
+    out_dir: Path = args.out_dir
     out_dir.mkdir(parents=True, exist_ok=True)
 
     shape = importers.importStep(str(step_path))
