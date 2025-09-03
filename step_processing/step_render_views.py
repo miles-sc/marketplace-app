@@ -1,7 +1,6 @@
 
 from pathlib import Path
 import argparse
-import cadquery as cq
 from cadquery import exporters, importers
 
 def export_svg(obj, out_svg: Path, projection_dir, stroke_width=1, show_hidden=False):
