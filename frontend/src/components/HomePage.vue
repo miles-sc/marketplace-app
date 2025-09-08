@@ -120,7 +120,7 @@ h1 {
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
-  gap: clamp(0.5rem, 2vw, 2rem); /* Scales with screen size */
+  gap: clamp(0.5rem, 2vw, 2rem);
   width: 100%;
   max-width: 100vw;
   overflow: hidden;
@@ -128,7 +128,13 @@ h1 {
 }
 
 .image-row img {
-  max-width: clamp(80px, 25vw, 300px); /* Shrinks on small screens */
+  max-width: clamp(80px, 25vw, 300px);
+  height: auto;
+  object-fit: contain;
+}
+
+.job-results .image-row img {
+  width: clamp(120px, 20vw, 200px);
   height: auto;
   object-fit: contain;
 }
