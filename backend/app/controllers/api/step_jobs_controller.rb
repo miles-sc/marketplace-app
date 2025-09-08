@@ -5,10 +5,7 @@ module Api
   class StepJobsController < ApplicationController
     BINARY_SCRIPT_DIR= Rails.root.parent.join("step_processing","build")
     RENDER_SCRIPT_DIR= Rails.root.parent.join("step_processing","step_render_views.py")
-    RENDER_CACHE_DIR= Rails.root.parent.join("step_processing","render_cache")
-
     CONDA_ENV="cq"
-
 
     def create
       uploaded_file = params[:file]
@@ -35,20 +32,11 @@ module Api
 
       `conda run -n #{CONDA_ENV} python #{RENDER_SCRIPT_DIR} #{step_dir} #{job_directory}`
 
-      iso=RENDER_CACHE_DIR.join("iso.svg")
-      front=RENDER_CACHE_DIR.join("front.svg")
-      top=RENDER_CACHE_DIR.join("top.svg")
-
-      FileUtils.cp(iso, job_directory.join("iso.svg"))
-      FileUtils.cp(front, job_directory.join("front.svg"))
-      FileUtils.cp(top, job_directory.join("top.svg"))
-
       StepJob.create!(
         job_id: job_id,
         filename: uploaded_file.original_filename.downcase,
         metrics: { volume: volume, surface_area: area }
       )
-
 
       render json: {
         job_id: job_id,
