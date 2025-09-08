@@ -44,6 +44,11 @@
                 <tr v-for="row in materialRows" :key="row.name">
                     <td>{{ row.name }}</td>
                     <td>{{ fmtMoney(row.cost) }}</td>
+                    <td class="cart-cell">
+                        <button class="cart-button" @click="addToCart(row)">
+                            <IconCart />
+                        </button>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -58,15 +63,28 @@ import machined from '../assets/machined.png';
 import tube from '../assets/tube.png';
 import { ref, computed } from 'vue' //enables the ability reference other/hidden objects
 import { useMaterialsStore } from '@/stores/materials'
+import { useCartStore } from '@/stores/cart'
+import { IconCart } from '@/components/icons'
 
 const stepFileInput = ref(null)
 /*creates an element that can be referenced by this name. input block in
 template section hooks up to this object */
 const job=ref(null)
 const store = useMaterialsStore()
+const cart = useCartStore()
 
 function triggerUpload() { //simulates a click on this element
   stepFileInput.value.click()
+}
+
+
+function addToCart(row) {
+  cart.addItem({
+    jobId: job.value.job_id,
+    filename: job.value.filename,
+    material: row.name,
+    price: row.cost
+  })
 }
 
 async function handleFileUpload(event) {
@@ -186,7 +204,7 @@ button:hover {
 .materials-cost th,
 .materials-cost td {
   padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid #ddd;
+  /* border-bottom: 1px solid #ddd; */
 }
 
 .materials-cost tbody tr {
@@ -197,6 +215,28 @@ button:hover {
 .materials-cost tbody tr:hover {
   background-color: #8B0000;
   color: #ffffff;
+}
+
+.materials-cost td.cart-cell {
+  text-align: right;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.materials-cost tr:hover td.cart-cell {
+  opacity: 1;
+}
+
+.cart-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit; /* match text color */
+  padding: 0;
+}
+
+.cart-button:hover {
+  transform: scale(1.1);
 }
 
 </style>
