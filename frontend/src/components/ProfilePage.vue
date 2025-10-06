@@ -106,7 +106,7 @@ p {
 .btn-logout {
   width: 100%;
   padding: 12px;
-  background-color: #d32f2f;
+  background-color: #8B0000;
   color: white;
   border: none;
   border-radius: 4px;
@@ -117,6 +117,6 @@ p {
 }
 
 .btn-logout:hover {
-  background-color: #b71c1c;
+  background-color: #a00000;
 }
 </style>
