@@ -8,7 +8,10 @@
                 <RouterLink to="/resources">Resources</RouterLink>
             </div>
             <div class="nav-right">
-                <RouterLink to="/cart" > <IconCart /> </RouterLink>
+                <RouterLink to="/cart" class="cart-link">
+                    <IconCart />
+                    <span v-if="cart.items.length > 0" class="cart-badge">{{ cart.items.length }}</span>
+                </RouterLink>
                 <RouterLink to="/profile" > <IconProfile /> </RouterLink>
             </div>
         </nav>
@@ -18,6 +21,9 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import { IconCart, IconProfile } from '@/components/icons';
+import { useCartStore } from '@/stores/cart';
+
+const cart = useCartStore();
 </script>
 
 
@@ -67,6 +73,29 @@ import { IconCart, IconProfile } from '@/components/icons';
 .nav-right {
   display: flex;
   gap: 1rem;
+}
+
+.cart-link {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: #f8f8f8;
+  color: #8B0000;
+  font-size: 0.625rem;
+  font-weight: bold;
+  border-radius: 50%;
+  border: 1px solid #8B0000;
+  min-width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px;
 }
 
 </style>
