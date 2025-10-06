@@ -30,16 +30,27 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="cart-summary">
+        <strong>
+          Total: {{ totalLineItems }} items | {{ totalPieces }} pieces | {{ fmtMoney(totalPrice) }}
+        </strong>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { useCartStore } from '@/stores/cart'
 const cart = useCartStore()
 
 const currency = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD' })
 function fmtMoney(n) { return currency.format(Number(n || 0)) }
+
+const totalLineItems = computed(() => cart.items.length)
+const totalPieces = computed(() => cart.items.reduce((sum, item) => sum + (item.quantity || 1), 0))
+const totalPrice = computed(() => cart.items.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0))
 </script>
 
 <style scoped>
@@ -86,5 +97,12 @@ function fmtMoney(n) { return currency.format(Number(n || 0)) }
 .cart-table th {
   background-color: #f5f5f5;
   font-weight: bold;
+}
+
+.cart-summary {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  text-align: right;
+  border-top: 2px solid #333;
 }
 </style>
