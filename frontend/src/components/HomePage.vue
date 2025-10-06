@@ -32,7 +32,7 @@
         </div>
 
         <div class="materials-cost">
-            <h2>Price by Material</h2>
+            <h2>Select Material</h2>
             <table>
                 <thead>
                 <tr>
@@ -41,17 +41,25 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="row in materialRows" :key="row.name">
+                <tr
+                    v-for="row in materialRows"
+                    :key="row.name"
+                    @click="selectMaterial(row)"
+                    :class="{ selected: selectedMaterial?.name === row.name }"
+                >
                     <td>{{ row.name }}</td>
                     <td>{{ fmtMoney(row.cost) }}</td>
-                    <td class="cart-cell">
-                        <button class="cart-button" @click="addToCart(row)">
-                            <IconCart />
-                        </button>
-                    </td>
                 </tr>
                 </tbody>
             </table>
+
+            <div v-if="selectedMaterial" class="add-to-cart-section">
+                <div class="quantity-field">
+                    <label for="quantity">Quantity:</label>
+                    <input id="quantity" type="number" v-model.number="quantity" min="1" />
+                </div>
+                <button @click="addToCart">Add to Cart</button>
+            </div>
         </div>
 
     </div>
@@ -64,12 +72,13 @@ import tube from '../assets/tube.png';
 import { ref, computed } from 'vue' //enables the ability reference other/hidden objects
 import { useMaterialsStore } from '@/stores/materials'
 import { useCartStore } from '@/stores/cart'
-import { IconCart } from '@/components/icons'
 
 const stepFileInput = ref(null)
 /*creates an element that can be referenced by this name. input block in
 template section hooks up to this object */
 const job=ref(null)
+const selectedMaterial = ref(null)
+const quantity = ref(1)
 const store = useMaterialsStore()
 const cart = useCartStore()
 
@@ -77,13 +86,18 @@ function triggerUpload() { //simulates a click on this element
   stepFileInput.value.click()
 }
 
+function selectMaterial(row) {
+  selectedMaterial.value = row
+}
 
-function addToCart(row) {
+function addToCart() {
+  if (!selectedMaterial.value) return
   cart.addItem({
     jobId: job.value.job_id,
     filename: job.value.filename,
-    material: row.name,
-    price: row.cost
+    material: selectedMaterial.value.name,
+    price: selectedMaterial.value.cost,
+    quantity: quantity.value
   })
 }
 
@@ -217,26 +231,36 @@ button:hover {
   color: #ffffff;
 }
 
-.materials-cost td.cart-cell {
-  text-align: right;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+.materials-cost tbody tr.selected {
+  background-color: #8B0000;
+  color: #ffffff;
 }
 
-.materials-cost tr:hover td.cart-cell {
-  opacity: 1;
+.add-to-cart-section {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-.cart-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: inherit; /* match text color */
-  padding: 0;
+.quantity-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.cart-button:hover {
-  transform: scale(1.1);
+.quantity-field label {
+  font-weight: bold;
+}
+
+.quantity-field input {
+  width: 80px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 2px solid #8B0000;
+  border-radius: 4px;
+  text-align: center;
 }
 
 </style>

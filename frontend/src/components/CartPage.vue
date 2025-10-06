@@ -15,16 +15,18 @@
           <tr>
             <th>Part</th>
             <th>Material</th>
-            <th>Quantity</th>
-            <th>Price</th>
+            <th>Unit Price</th>
+            <th>QTY</th>
+            <th>Total Price</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(item, idx) in cart.items" :key="idx">
             <td>{{ item.filename }}</td>
             <td>{{ item.material }}</td>
-            <td>{{ item.quantity || 1 }}</td>
             <td>{{ fmtMoney(item.price) }}</td>
+            <td>{{ item.quantity || 1 }}</td>
+            <td>{{ fmtMoney(item.price * (item.quantity || 1)) }}</td>
           </tr>
         </tbody>
       </table>
