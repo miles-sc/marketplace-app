@@ -12,7 +12,7 @@
                     <IconCart />
                     <span v-if="cart.items.length > 0" class="cart-badge">{{ cart.items.length }}</span>
                 </RouterLink>
-                <RouterLink to="/profile" > <IconProfile /> </RouterLink>
+                <RouterLink :to="authStore.isLoggedIn ? '/profile' : '/login'" > <IconProfile /> </RouterLink>
             </div>
         </nav>
     </header>
@@ -22,8 +22,10 @@
 import { RouterLink } from 'vue-router';
 import { IconCart, IconProfile } from '@/components/icons';
 import { useCartStore } from '@/stores/cart';
+import { useAuthStore } from '@/stores/auth';
 
 const cart = useCartStore();
+const authStore = useAuthStore();
 </script>
 
 

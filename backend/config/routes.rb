@@ -7,5 +7,9 @@ Rails.application.routes.draw do
                 get "files/*filename", to: "step_jobs#file"
             end
         end
+
+        # Authentication routes
+        post "auth/register", to: "auth#register"
+        post "auth/login", to: "auth#login"
     end
 end
